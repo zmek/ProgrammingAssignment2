@@ -25,7 +25,7 @@ cacheSolve <- function(x, ...) {
                 m <- x$getinverse()  #performs the getinverse() function on the input object 
                 if(!is.null(m)) {   #if inverse has been stored already, m is !null, therefore retrive m from the input
                         message("getting cached data")
-                        return(m)  #return and exist here
+                        return(m)  #return and exit here
                 }
                 data <- x$get()  #otherwise get the data that has been stored in the input list
                 m <- solve(data, ...) #calculate inverse
