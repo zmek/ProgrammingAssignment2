@@ -4,14 +4,14 @@
 
 makeCacheMatrix <- function(x = matrix()) {
         m <- NULL
-        # note m is a value that will be available in the parent env after the makeCacheMatrix completes; x and y are not
-        set <- function(y) { #set is a function applied to the input  
+        set <- function(y) { 
                 x <<- y
                 m <<- NULL
         }
-        get <- function() x #get is a function that gets the stored data from parent env
-        setinverse <- function(inverse) m <<- inverse # store inverse of input and assigns it to m in the parent env (note - inverse could be any name)
-        list(set = set, get = get,  #this creates a list of functions and returns them to the parent env
+        get <- function() x 
+        setinverse <- function(inverse) m <<- inverse 
+        getinverse <- function() m 
+        list(set = set, get = get,  
              setinverse = setinverse,
              getinverse = getinverse)
 }
@@ -23,14 +23,14 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
                 ## Return a matrix that is the inverse of 'x'
-                m <- x$getinverse()  #performs the getinverse() function on the input object 
-                if(!is.null(m)) {   #if inverse has been stored already, m is !null, therefore retrive m from the input
+                m <- x$getinverse() 
+                if(!is.null(m)) {   
                         message("getting cached data")
-                        return(m)  #return and exit here
+                        return(m)  
                 }
-                data <- x$get()  #otherwise get the data that has been stored in the input list
-                m <- solve(data, ...) #calculate inverse
-                x$setinverse(m) #save the inverse for next time
-                m #return m
+                data <- x$get()  
+                m <- solve(data, ...) 
+                x$setinverse(m) 
+                m 
         
 }
